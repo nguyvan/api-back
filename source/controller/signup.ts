@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import moment from "moment";
 import * as crypto from "crypto";
 import DataType from '../dataTypes/types';
-import mainDB from '../index';
+import main from '../index';
 
 const signup = (req: Request, res: Response, next: NextFunction) => {
     let body = req.body;
@@ -14,7 +14,7 @@ const signup = (req: Request, res: Response, next: NextFunction) => {
         return res.status(400).send("Bad Request")
     }
     else {
-        if (mainDB.find(email)) {
+        if (main.mainDB.find(email)) {
             return res.status(400).send("Email already in use")
         }
         else {
@@ -24,7 +24,7 @@ const signup = (req: Request, res: Response, next: NextFunction) => {
                 last_session: moment(Date.now()).format("YYYY-MM-DD"),
                 limit: 80000
             }
-            mainDB.write(new_user);
+            main.mainDB.write(new_user);
             return next()
         }
     }

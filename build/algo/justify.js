@@ -1,11 +1,14 @@
+// split paragraph
 function split_text(text) {
+    console.log(text)
     return text.split(/\r?\n/g);
 }
+// split each word 
 function split_word(text) {
     return text.split(" ");
 }
 function add_space_to_a_line(context, begin, end, num_space) {
-    // number of line in a single line
+    // number of word in a single line
     let num_words = end - begin + 1;
     let line = "";
     for (let i = begin; i < end; i++) {
@@ -20,15 +23,15 @@ function add_space_to_a_line(context, begin, end, num_space) {
     return line;
 }
 function justify_text(context, max_length) {
-    let curr_line_start = 0;
-    let num_words_curr_line = 0;
-    let curr_line_length = 0;
+    let curr_line_start = 0; // start of the current line
+    let num_words_curr_line = 0; // number of words in the current line
+    let curr_line_length = 0; // current length of line
     let result = [];
     for (let i = 0; i < context.length; i++) {
         ++num_words_curr_line;
         let lookahead_line_length = curr_line_length
-            + context[i].length
-            + (num_words_curr_line - 1);
+            + context[i].length // length of current word
+            + (num_words_curr_line - 1); // add space
         if (lookahead_line_length == max_length) {
             let ans = add_space_to_a_line(context, curr_line_start, i, i - curr_line_start);
             result.push(ans);

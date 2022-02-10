@@ -16,6 +16,7 @@ const mainDB = new DBManager();
 const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(bodyParser.text())
 app.use(logMiddleware)
 
 app.post("/api/signup", main_controller.signup, (req: Request, res: Response) => {
@@ -55,4 +56,4 @@ const start = () => {
 
 start();
 
-export default mainDB;
+export default {mainDB, app};

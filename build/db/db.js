@@ -23,6 +23,19 @@ class DBManager {
         }
         return this.db.data;
     }
+    getLimit(email_user) {
+        let data = this.read();
+        if (data == null) {
+            return -1;
+        }
+        const index = data.users.findIndex(({ email }) => email === email_user);
+        if (index != undefined) {
+            return data.users[index]["limit"];
+        }
+        else {
+            return -1;
+        }
+    }
     write(user) {
         if (this.db.data == null) {
             this.db.data = { users: [] };
@@ -51,6 +64,20 @@ class DBManager {
         if (index != undefined) {
             data.users[index]["limit"] = limit;
             data.users[index]["last_session"] = last_session;
+            this.db.write();
+        }
+        else {
+            return;
+        }
+    }
+    removeUser(email_user) {
+        let data = this.read();
+        if (data == null) {
+            return;
+        }
+        const index = data.users.findIndex(({ email }) => email === email_user);
+        if (index != undefined) {
+            delete data.users[index];
             this.db.write();
         }
         else {

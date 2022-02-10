@@ -1,6 +1,6 @@
 import moment from "moment";
 import * as crypto from "crypto";
-import mainDB from '../index.js';
+import main from '../index.js';
 const signup = (req, res, next) => {
     let body = req.body;
     let email = body.email;
@@ -10,7 +10,7 @@ const signup = (req, res, next) => {
         return res.status(400).send("Bad Request");
     }
     else {
-        if (mainDB.find(email)) {
+        if (main.mainDB.find(email)) {
             return res.status(400).send("Email already in use");
         }
         else {
@@ -20,7 +20,7 @@ const signup = (req, res, next) => {
                 last_session: moment(Date.now()).format("YYYY-MM-DD"),
                 limit: 80000
             };
-            mainDB.write(new_user);
+            main.mainDB.write(new_user);
             return next();
         }
     }
