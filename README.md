@@ -18,6 +18,12 @@ npm install
 npm start 
 ```
 
+## Running test
+
+```bash
+npm test 
+```
+
 ## URL public
 
 [https://tictactrip-back-api.herokuapp.com/](https://tictactrip-back-api.herokuapp.com/)
